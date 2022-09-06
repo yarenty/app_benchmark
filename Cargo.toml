@@ -1,0 +1,23 @@
+[package]
+name = "benchmark"
+authors = ["<yarenty> yarenty@gmail.com"]
+version = "0.1.0"
+edition = "2021"
+description = "Benchmarking solution for separate end-to-end applications"
+
+[dependencies]
+tokio = "1"
+humantime = "2"
+clap = { version = "3.2", features = ["derive", "color"]}
+poloto = "15.2"
+tagger ="4"
+chrono ="0.4"
+log = "0.4"
+env_logger = "0.9"
+thiserror = "1"
+csv = "1"
+serde = "1"
+serde_derive = "1"
+itertools = "0.10"
+
+
