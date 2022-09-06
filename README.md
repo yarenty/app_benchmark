@@ -56,7 +56,7 @@ OPTIONS:
 ## Example output
 
 ```log
-09:33:24.899 (t: main) INFO - benchmark - Application to be benchmark is: /opt/work/micro_flow_datafusion/target/debug/examples/example_processing
+09:33:24.899 (t: main) INFO - benchmark - Application to be benchmark is: /opt/workspace/ballista/target/release/examples/example_processing
 09:33:24.899 (t: main) INFO - benchmark - Number of runs: 10
 09:33:24.902 (t: main) INFO - benchmark - Collecting data::example_processing
 09:33:24.902 (t: main) INFO - benchmark::bench::analysis - Run 0 of 10
@@ -124,3 +124,4 @@ and  output graphs:
 
 
 TODO:
+- local db / or file struct to see changes in time - trends
