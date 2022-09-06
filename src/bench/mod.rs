@@ -27,21 +27,10 @@ pub enum BenchError {
     /// visualisation error
     #[error("{0}")]
     Visualization(String),
-    // /// Error wrapper for plotter
-    // #[error("{0}")]
-    // PlotterError(#[from] dyn std::error::Error),
+clea
 }
-/*
-impl From<BenchError> for dyn  std::error::Error {
-    fn from(error: BenchError) -> Self {
-        match error {
-            BenchError::PlotterError(e) => Error(e),
-        }
-    }
-}
-*/
 
-// Note that structs can derive both Serialize and Deserialize!
+/// CSV output record 
 #[derive(Debug, Serialize, Deserialize, Default)]
 #[serde(rename_all = "PascalCase")]
 pub struct Record<'a> {
@@ -50,6 +39,7 @@ pub struct Record<'a> {
     mem: &'a str,
 }
 
+/// Current output directory
 pub fn get_current_working_dir() -> String {
     let res = env::current_dir();
     match res {
@@ -60,7 +50,7 @@ pub fn get_current_working_dir() -> String {
 
 /// Checking if application is in current dir or is the full path.
 /// Returns full paths and short name of app.
-/// Or error other wise.
+/// Error otherwise.
 pub fn check_in_current_dir(app: &str) -> Result<(String, String)> {
     let (full, short) = if app.contains(std::path::MAIN_SEPARATOR) {
         (
@@ -113,6 +103,7 @@ pub fn check_in_current_dir(app: &str) -> Result<(String, String)> {
     }
 }
 
+/// Creates output directory for storing csv/graphs outputs. 
 pub fn create_output_file(app: &str, filename: &str) -> tagger::Adaptor<std::fs::File> {
     std::fs::create_dir_all(format!("bench_{}", app)).expect("Cannot create output directory");
     let file = std::fs::File::create(format!(
