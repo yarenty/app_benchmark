@@ -38,7 +38,7 @@ pub fn scatter(app: &str, y: Vec<i64>, file: &str, title: &str, y_axis: &str) ->
 
     let plotter = poloto::quick_fmt!(
         title,
-        "execution no",
+        "no",
         y_axis,
         poloto::build::markers([], [0.0]),
         data.iter().cloned_plot().line("")
