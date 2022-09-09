@@ -17,6 +17,8 @@ Process outputs and provide results as:
 Save outputs to local DB/file to check downgrade/speedup in next release of application.
 
 
+
+
 ## Methodology
 
 For each benchmark run:
@@ -33,9 +35,43 @@ For each benchmark run:
 cargo build -bin benchmark
 ```
 
+
+
+## Build
+
+```shell
+cargo build -r --bin benchmark 
+```
+
 ## Usage
 
-```txt
+###  Simple application
+```shell
+./benchmark -a <your_application>
+```
+
+
+### Application with parameters
+
+Since internally collecting data is dependent on gnu time, if your app could have its own parameters - please put them in sh script ie:
+
+```shell
+./benchmark -a tested_app_1.sh
+```
+
+where tested_app_1.sh :
+```shell
+<your_application> param1 param2 param3
+```
+
+Note: make sure :
+```shell
+chmod +x tested_app_1.sh
+```
+
+
+### Other params
+```shell
 benchmark 0.1.0
 <yarenty> yarenty@gmail.com
 Benchmarking applications.
@@ -51,6 +87,10 @@ OPTIONS:
     -V, --version                      Print version information
 
 ```
+
+
+
+
 
 
 ## Example output
@@ -124,4 +164,7 @@ and  output graphs:
 
 
 TODO:
+- incremental runs - use date/time in output dir
+- memory - MB instead kB
+- add examples with sh
 - local db / or file struct to see changes in time - trends
