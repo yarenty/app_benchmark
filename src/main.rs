@@ -1,6 +1,5 @@
 //! Full benchmarking solution for separate end-to-end applications.
 
-#![feature(generic_arg_infer)]
 use clap::Parser;
 use log::info;
 

@@ -2,7 +2,6 @@ use crate::bench::{create_output_file, BenchError, Result};
 use fmt::Write;
 use itertools::Itertools;
 use poloto::prelude::*;
-use poloto::simple_theme::SimpleTheme;
 use std::fmt;
 
 pub fn cpu_graph(app: &str, y: Vec<i32>) -> Result<()> {

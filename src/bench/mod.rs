@@ -27,10 +27,9 @@ pub enum BenchError {
     /// visualisation error
     #[error("{0}")]
     Visualization(String),
-clea
 }
 
-/// CSV output record 
+/// CSV output record
 #[derive(Debug, Serialize, Deserialize, Default)]
 #[serde(rename_all = "PascalCase")]
 pub struct Record<'a> {
@@ -103,7 +102,7 @@ pub fn check_in_current_dir(app: &str) -> Result<(String, String)> {
     }
 }
 
-/// Creates output directory for storing csv/graphs outputs. 
+/// Creates output directory for storing csv/graphs outputs.
 pub fn create_output_file(app: &str, filename: &str) -> tagger::Adaptor<std::fs::File> {
     std::fs::create_dir_all(format!("bench_{}", app)).expect("Cannot create output directory");
     let file = std::fs::File::create(format!(

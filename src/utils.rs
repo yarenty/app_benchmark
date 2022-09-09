@@ -49,4 +49,3 @@ pub fn setup_logger(log_thread: bool, rust_log: Option<&str>) {
 
     builder.init();
 }
-
