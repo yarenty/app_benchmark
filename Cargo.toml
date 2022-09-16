@@ -1,5 +1,5 @@
 [package]
-name = "benchmark"
+name = "app-benchmark"
 authors = ["<yarenty> yarenty@gmail.com"]
 version = "0.1.0"
 edition = "2021"
