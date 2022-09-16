@@ -1,10 +1,12 @@
 [package]
 name = "app-benchmark"
-authors = ["<yarenty> yarenty@gmail.com"]
+authors = ["yarenty <yarenty@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
 repository = "https://github.com/yarenty/app_benchmark"
+homepage = "https://github.com/yarenty/app_benchmark"
 license = "MIT OR Apache-2.0"
+readme = "README.md"
 description = "Benchmarking solution for separate end-to-end applications."
 categories = ["command-line-utilities"]
 keywords = [
