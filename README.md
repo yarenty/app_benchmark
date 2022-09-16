@@ -1,22 +1,20 @@
 # Benchmark
 
-Full benchmarking solution for separate end-to-end applications.
+Benchmarking data collector - run application as child process, collecting stats (time, cpu usage, memory usage)  and generate benchmarking reports.
 
 ## High level idea
-In the loop:
-- run application
+
+- run application multiple times
 - collect all interested readings:
     - time
     - CPU
     - memory
 
-Process outputs and provide results as:
-- csv/excel
-- graphs
+- process outputs and provide results as:
+  - csv/excel
+  - graphs
 
 Save outputs to local DB/file to check downgrade/speedup in next release of application.
-
-
 
 
 ## Methodology
@@ -26,16 +24,7 @@ For each benchmark run:
 - remove outliers
 - average output results
 
-
-![methodology](img/testing_methodology.png)
-
-## Build
-
-```shell
-cargo build -bin benchmark
-```
-
-
+![methodology](docs/img/testing_methodology.png)
 
 ## Build
 
@@ -45,46 +34,21 @@ cargo build -r --bin benchmark
 
 ## Usage
 
-###  Simple application
-```shell
-./benchmark -a <your_application>
-```
-
-
-### Application with parameters
-
-Since internally collecting data is dependent on gnu time, if your app could have its own parameters - please put them in sh script ie:
-
-```shell
-./benchmark -a tested_app_1.sh
-```
-
-where tested_app_1.sh :
-```shell
-<your_application> param1 param2 param3
-```
-
-Note: make sure :
-```shell
-chmod +x tested_app_1.sh
-```
-
-
-### Other params
 ```shell
 benchmark 0.1.0
-<yarenty> yarenty@gmail.com
-Benchmarking applications.
+Benchmarking data collector.
 
 USAGE:
-    benchmark [OPTIONS] --application <APPLICATION>
+    benchmark [OPTIONS] <APPLICATION>
+
+ARGS:
+    <APPLICATION>    Application path (just name if it is in the same directory)
 
 OPTIONS:
-    -a, --application <APPLICATION>    Application path (just name if in the same directory)
-    -h, --help                         Print help information
-    -l, --log <LOG>                    Set custom log level: info, debug, trace [default: info]
-    -r, --runs <RUNS>                  Number of application runs to be executed [default: 10]
-    -V, --version                      Print version information
+    -h, --help           Print help information
+    -l, --log <LOG>      Set custom log level: info, debug, trace [default: info]
+    -r, --runs <RUNS>    Number of runs to be executed [default: 10]
+    -V, --version        Print version information
 
 ```
 
@@ -166,5 +130,5 @@ and  output graphs:
 TODO:
 - incremental runs - use date/time in output dir
 - memory - MB instead kB
-- add examples with sh
-- local db / or file struct to see changes in time - trends
+- add examples with sub parameters
+- local db / or file struct to see changes with time / application trends
