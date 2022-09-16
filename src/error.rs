@@ -1,0 +1,19 @@
+use thiserror::Error;
+
+pub type Result<T> = std::result::Result<T, BenchError>;
+
+#[derive(Error, Debug)]
+pub enum BenchError {
+    /// benchmarking related errors
+    #[error("{0}")]
+    Unknown(String),
+    /// app not found
+    #[error("{0}")]
+    AppNotFound(String),
+    /// IO error
+    #[error("{0}")]
+    IOError(String),
+    /// visualisation error
+    #[error("{0}")]
+    Visualization(String),
+}

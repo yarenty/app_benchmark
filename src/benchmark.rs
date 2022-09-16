@@ -4,24 +4,25 @@ use clap::Parser;
 use log::info;
 
 mod bench;
+mod error;
 mod utils;
 
 use crate::bench::analysis::analyze;
-use crate::bench::check_in_current_dir;
 use crate::bench::collector::process_outputs;
 use crate::bench::graphs::*;
-use crate::bench::Result;
+use error::Result;
+use utils::check_in_current_dir;
 use utils::setup_logger;
 
 #[derive(Parser, Debug)]
-#[clap(version, author)]
-#[clap(about = "Benchmarking applications.", long_about = None)]
+#[clap(version)]
+#[clap(about = "Benchmarking data collector.", long_about = None)]
 struct Args {
-    /// Application path (just name if in the same directory).
-    #[clap(short, long)]
+    /// Application path (just name if it is in the same directory).
+    #[clap(value_parser)]
     application: String,
 
-    /// Number of application runs to be executed
+    /// Number of runs to be executed.
     #[clap(short, long)]
     #[clap(default_value_t = 10)]
     runs: usize,

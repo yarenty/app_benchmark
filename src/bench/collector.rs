@@ -1,4 +1,6 @@
-use crate::bench::{create_output_file, BenchError, Record, Result};
+use crate::bench::Record;
+use crate::error::{BenchError, Result};
+use crate::utils::create_output_file;
 use csv;
 use log::info;
 
@@ -72,7 +74,7 @@ pub fn process_outputs(app: &str, runs: &Vec<String>) -> Result<(Vec<i64>, Vec<i
                 let o = &ip[i..j];
                 println!("{},", o);
                 r.mem = o;
-                mem.push(o.parse::<i32>().unwrap());
+                mem.push(o.parse::<i32>().unwrap() / 1024);
             }
         }
 
@@ -94,7 +96,7 @@ pub fn process_outputs(app: &str, runs: &Vec<String>) -> Result<(Vec<i64>, Vec<i
         average(&cpu)
     );
     info!(
-        "Memory [kB]:: min: {}, max: {}, avg: {} kB",
+        "Memory [MB]:: min: {}, max: {}, avg: {} MB",
         mem.iter().min().unwrap(),
         mem.iter().max().unwrap(),
         average(&mem)

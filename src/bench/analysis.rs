@@ -1,4 +1,5 @@
-use crate::bench::{get_current_working_dir, BenchError, Result};
+use crate::error::{BenchError, Result};
+use crate::utils::get_current_working_dir;
 use log::{debug, info, trace};
 use std::process::{Command, Stdio};
 

@@ -1,4 +1,5 @@
-use crate::bench::{create_output_file, BenchError, Result};
+use crate::error::{BenchError, Result};
+use crate::utils::create_output_file;
 use fmt::Write;
 use itertools::Itertools;
 use poloto::prelude::*;
