@@ -1,19 +1,20 @@
 [package]
 name = "app-benchmark"
 authors = ["yarenty <yarenty@gmail.com>"]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 repository = "https://github.com/yarenty/app_benchmark"
 homepage = "https://github.com/yarenty/app_benchmark"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-description = "Benchmarking solution for separate end-to-end applications."
+description = "Benchmarking for one-shot applicaitions - running on top of GNU Time app. (Use app-tracer for long running  processes like servers, streaming)."
 categories = ["command-line-utilities"]
 keywords = [
     "benchmark",
-    "cli",
+    "monitor",
     "trace",
-    "tracing"
+    "tracing",
+    "observability"
 ]
 
 [dependencies]

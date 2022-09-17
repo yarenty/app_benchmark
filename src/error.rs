@@ -17,3 +17,9 @@ pub enum BenchError {
     #[error("{0}")]
     Visualization(String),
 }
+
+impl From<std::io::Error> for BenchError {
+    fn from(err: std::io::Error) -> BenchError {
+        BenchError::IOError(err.to_string())
+    }
+}

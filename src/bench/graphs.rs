@@ -16,17 +16,38 @@ pub fn cpu_graph(app: &str, y: Vec<i32>) -> Result<()> {
 }
 
 pub fn time_graph(app: &str, y: Vec<i64>) -> Result<()> {
-    scatter(app, y, "time.svg", "Processing time", "time [ms]")
+    if y.iter().max().unwrap() > &9999 {
+        // over 10 sec - move scale to sec
+        scatter(
+            app,
+            y.iter().map(|x| (*x / 1000) as i64).collect_vec(),
+            "time.svg",
+            "Processing time",
+            "time [s]",
+        )
+    } else {
+        scatter(app, y, "time.svg", "Processing time", "time [ms]")
+    }
 }
 
 pub fn mem_graph(app: &str, y: Vec<i32>) -> Result<()> {
-    scatter(
-        app,
-        y.iter().map(|x| *x as i64).collect_vec(),
-        "mem.svg",
-        "Memory usage",
-        "memory [kB]",
-    )
+    if y.iter().max().unwrap() > &2048 {
+        scatter(
+            app,
+            y.iter().map(|x| (*x / 1024) as i64).collect_vec(),
+            "mem.svg",
+            "Memory usage",
+            "memory [MB]",
+        )
+    } else {
+        scatter(
+            app,
+            y.iter().map(|x| *x as i64).collect_vec(),
+            "mem.svg",
+            "Memory usage",
+            "memory [kB]",
+        )
+    }
 }
 
 pub fn scatter(app: &str, y: Vec<i64>, file: &str, title: &str, y_axis: &str) -> Result<()> {
@@ -38,7 +59,7 @@ pub fn scatter(app: &str, y: Vec<i64>, file: &str, title: &str, y_axis: &str) ->
 
     let plotter = poloto::quick_fmt!(
         title,
-        "no",
+        "runs",
         y_axis,
         poloto::build::markers([], [0.0]),
         data.iter().cloned_plot().line("")

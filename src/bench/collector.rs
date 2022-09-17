@@ -3,6 +3,7 @@ use crate::error::{BenchError, Result};
 use crate::utils::create_output_file;
 use csv;
 use log::info;
+use std::io::Write;
 
 #[cfg(windows)]
 const LINE_ENDING: &str = "\r\n";
@@ -74,34 +75,47 @@ pub fn process_outputs(app: &str, runs: &Vec<String>) -> Result<(Vec<i64>, Vec<i
                 let o = &ip[i..j];
                 println!("{},", o);
                 r.mem = o;
-                mem.push(o.parse::<i32>().unwrap() / 1024);
+                mem.push(o.parse::<i32>().unwrap());
             }
         }
 
         wtr.serialize(r).expect("Error serializing outputs to csv");
     }
 
+    let mut summary = create_output_file(app, "summary_report.txt").inner;
+    info!("Generating report {:?}", summary);
+
     //summary
     info!("SUMMARY:");
-    info!(
-        "Time [ms]:: min: {}, max: {}, avg: {} ms",
+    summary.write_all(b"Summary:\n")?;
+    let report = format!(
+        "Time   [ms]::   min: {:<8}  max: {:<8}  avg: {:<8.1}\n",
         time.iter().min().unwrap(),
         time.iter().max().unwrap(),
         average_i64(&time)
     );
-    info!(
-        "CPU [%]:: min: {}, max: {}, avg: {} %",
+    info!("{}", report);
+    summary.write_all(report.as_bytes())?;
+    let report = format!(
+        "CPU     [%]::   min: {:<8}  max: {:<8}  avg: {:<8.1}\n",
         cpu.iter().min().unwrap(),
         cpu.iter().max().unwrap(),
         average(&cpu)
     );
-    info!(
-        "Memory [MB]:: min: {}, max: {}, avg: {} MB",
+    info!("{}", report);
+    summary.write_all(report.as_bytes())?;
+    let m = average(&mem);
+    let report = format!(
+        "Memory [KB]::   min: {:<8}  max: {:<8}  avg: {:<8.1}    avg[MB]: {:<8.1}\n",
         mem.iter().min().unwrap(),
         mem.iter().max().unwrap(),
-        average(&mem)
+        m,
+        m / 1024.0
     );
+    info!("{}", report);
+    summary.write_all(report.as_bytes())?;
 
+    summary.sync_all()?;
     //FIXME!!
     match wtr.flush() {
         Ok(_) => Ok((time, cpu, mem)),

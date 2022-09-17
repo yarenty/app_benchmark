@@ -2,6 +2,8 @@
 
 Benchmarking data collector - run application as child process, collecting stats (time, cpu usage, memory usage)  and generate benchmarking reports.
 
+_Note: For monitoring long running processes like: servers / streaming apps - see [https://github.com/yarenty/app_tracer](https://github.com/yarenty/app_tracer)._
+
 ## High level idea
 
 - run application multiple times
@@ -127,8 +129,16 @@ and  output graphs:
   ![mem.svg](bench_example_processing/mem.svg)
 
 
+## TEST
+
+```shell
+cargo build --example test_app -r   
+
+cargo run --bin benchmark -- /opt/workspace/app_banchmark/target/release/examples/test_app   
+```
+
+
 TODO:
 - incremental runs - use date/time in output dir
-- memory - MB instead kB
 - add examples with sub parameters
 - local db / or file struct to see changes with time / application trends
