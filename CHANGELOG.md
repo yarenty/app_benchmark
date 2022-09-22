@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0
+- support apps with they own parameters ```rust cargo run-- "/opt/workspace/app_banchmark/target/debug/examples/test_app -s -d asdf" ```
+
 ## 0.2.0
 - additional output file: summary_report.txt, which contains ... summary report ;-)
 - simple test_app example

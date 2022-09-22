@@ -10,7 +10,7 @@ mod utils;
 use crate::bench::analysis::analyze;
 use crate::bench::collector::process_outputs;
 use crate::bench::graphs::*;
-use error::Result;
+use color_eyre::eyre::Result;
 use utils::check_in_current_dir;
 use utils::setup_logger;
 
@@ -40,10 +40,11 @@ fn main() -> Result<()> {
     info!("Application to be benchmark is: {}", &args.application);
     info!("Number of runs: {}", &args.runs);
 
-    let (path, app) = check_in_current_dir(&args.application)?;
+    let (path, app, params) = check_in_current_dir(args.application)?;
+    info!("Application to be monitored is: {}, in dir {}", app, path);
 
     info!("Collecting data::{}", &app);
-    let out = analyze(&app, &path, args.runs)?;
+    let out = analyze(&app, &path, params, args.runs)?;
 
     info!("Processing outputs");
     let (time, cpu, mem) = process_outputs(&app, &out)?;

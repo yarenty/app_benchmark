@@ -99,7 +99,7 @@ Process finished with exit code 0
 Also in current directory of benchmark app there is output directory created named "bench_<your_app_name>", ie: bench_example_processing, which contains:
 
 Output csv file:
-- [benchmarks.csv](bench_example_processing/benchmarks.csv)
+- [benchmarks.csv](bench_test_app/benchmarks.csv)
 
 ```csv
 Time,Cpu,Mem
@@ -118,16 +118,19 @@ Time,Cpu,Mem
 and  output graphs:
 
 
-- [time.svg](bench_example_processing/time.svg)
-  ![time.svg](bench_example_processing/time.svg)
+- [time.svg](bench_test_app/time.svg)
+  ![time.svg](bench_test_app/time.svg)
 
-- [cpu.svg](bench_example_processing/cpu.svg)
-  ![cpu.svg](bench_example_processing/cpu.svg)
+- [cpu.svg](bench_test_app/cpu.svg)
+  ![cpu.svg](bench_test_app/cpu.svg)
 
 
-- [mem.svg](bench_example_processing/mem.svg)
-  ![mem.svg](bench_example_processing/mem.svg)
+- [mem.svg](bench_test_app/mem.svg)
+  ![mem.svg](bench_test_app/mem.svg)
 
+
+summary report:
+[summary_report.txt](bench_test_app/summary_report.txt)
 
 ## TEST
 
@@ -135,10 +138,12 @@ and  output graphs:
 cargo build --example test_app -r   
 
 cargo run --bin benchmark -- /opt/workspace/app_banchmark/target/release/examples/test_app   
+
+cargo run --bin benchmark -- "/opt/workspace/app_banchmark/target/release/examples/test_app -additionl -app -params"  
 ```
 
 
 TODO:
 - incremental runs - use date/time in output dir
-- add examples with sub parameters
 - local db / or file struct to see changes with time / application trends
+- move out from GNU time dependency to sysinfo

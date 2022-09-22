@@ -2,6 +2,7 @@ use crate::error::{BenchError, Result};
 use chrono::prelude::*;
 use env_logger::fmt::{Color, Formatter};
 use env_logger::{Builder, WriteStyle};
+use itertools::Itertools;
 use log::{Level, LevelFilter, Record};
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -19,7 +20,19 @@ pub fn get_current_working_dir() -> String {
 /// Checking if application is in current dir or is the full path.
 /// Returns full paths and short name of app.
 /// Error otherwise.
-pub fn check_in_current_dir(app: &str) -> Result<(String, String)> {
+pub fn check_in_current_dir(app: String) -> Result<(String, String, Vec<String>)> {
+    let with_params: Vec<String> = app
+        .split(' ')
+        .collect_vec()
+        .iter()
+        .map(|&s| s.into())
+        .collect();
+    let (app, params) = if let Some((a, p)) = with_params.split_first() {
+        (a, p.to_vec())
+    } else {
+        (&app, vec!["".to_string()])
+    };
+
     let (full, short) = if app.contains(std::path::MAIN_SEPARATOR) {
         (
             app.to_string(),
@@ -56,7 +69,7 @@ pub fn check_in_current_dir(app: &str) -> Result<(String, String)> {
     match cmd {
         Ok(out) => {
             if out.status.code() == Some(0) {
-                Ok((full, short))
+                Ok((full, short, params))
             } else {
                 Err(BenchError::AppNotFound(format!(
                     "Could not find application: {}.",

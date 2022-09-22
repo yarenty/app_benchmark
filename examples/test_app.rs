@@ -6,6 +6,8 @@
 fn main() {
     println!("Hello world");
     for i in 1..1000000 {
-        print!("AAAA {}", i);
+        if i % 1000 == 0 {
+            println!(" {}", i)
+        };
     }
 }

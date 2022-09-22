@@ -3,11 +3,11 @@ use crate::utils::get_current_working_dir;
 use log::{debug, info, trace};
 use std::process::{Command, Stdio};
 
-pub fn analyze(app: &str, path: &str, runs: usize) -> Result<Vec<String>> {
+pub fn analyze(app: &str, path: &str, params: Vec<String>, runs: usize) -> Result<Vec<String>> {
     let timer = if cfg!(target_os = "macos") {
         "gtime"
     } else {
-        "time"
+        "/usr/bin/time"
     };
 
     debug!("Collector for {}: {}", &app, &timer);
@@ -18,7 +18,8 @@ pub fn analyze(app: &str, path: &str, runs: usize) -> Result<Vec<String>> {
         info!("Run {} of {}", i, runs);
         let cmd = Command::new(timer)
             .arg("-v")
-            .arg(&path)
+            .arg(path)
+            .args(params.as_slice())
             .current_dir(get_current_working_dir())
             .stdin(Stdio::null())
             .stdout(Stdio::piped())

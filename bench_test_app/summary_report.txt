@@ -1,0 +1,4 @@
+Summary:
+Time   [ms]::   min: 10        max: 20        avg: 17.0    
+CPU     [%]::   min: 77        max: 95        avg: 89.0    
+Memory [KB]::   min: 904       max: 904       avg: 904.0       avg[MB]: 0.9     
