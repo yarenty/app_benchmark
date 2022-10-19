@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.1 
+- shrunken size of release binary by 60%+
+
 ## 0.3.0
 - support apps with they own parameters ```rust cargo run-- "/opt/workspace/app_banchmark/target/debug/examples/test_app -s -d asdf" ```
 
